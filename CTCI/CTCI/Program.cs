@@ -11,8 +11,9 @@ namespace CTCI
         static void Main(string[] args)
         {
             Chapter1 c1 = new Chapter1();
-            c1.Testcases();
-            
+            //c1.Testcases_P1();
+            c1.Testcases_P2();
+
 
             Console.ReadKey();
         }

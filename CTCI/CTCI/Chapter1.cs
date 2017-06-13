@@ -21,6 +21,7 @@ namespace CTCI
     /// </summary>
     class Chapter1
     {
+        #region Problem 1
         /// <summary>
         /// This Method will check if given string contain all unique characters - Using buffer - List
         /// </summary>
@@ -100,11 +101,101 @@ namespace CTCI
             return true;
         }
 
+        #endregion
 
+
+        #region Problem 2
+        /// <summary>
+        /// This Method will check if thwo given strings are permutations of each other -  sort and compare - O(n Logn)
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public bool Problem2_v1(string str1, string str2)
+        {
+            if (str1.Length != str2.Length)
+                return false;
+
+            str1 = Utilities.Sort(str1);
+            str2 = Utilities.Sort(str2);
+
+            return str1.Equals(str2);
+        }
+
+        /// <summary>
+        /// This Method will check if thwo given strings are permutations of each other -  use buffer O(m+n)
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public bool Problem2_v2(string str1, string str2)
+        {
+            if (str1.Length != str2.Length)
+                return false;
+
+            Dictionary<char, int> list = new Dictionary<char, int>();
+
+            foreach(char c in str1)
+            {
+                if (list.ContainsKey(c))
+                {
+                    list[c] = list[c] + 1;
+                }
+                else
+                    list[c] = 1;
+            }
+
+            foreach(char c in str2)
+            {
+                if (!list.ContainsKey(c) || ((list[c]-1)<0))
+                    return false;
+                list[c] = list[c] - 1;
+
+                if (list[c] == 0)
+                    list.Remove(c);
+            }
+
+                return list.Count==0;
+        }
+
+        /// <summary>
+        /// This Method will check if thwo given strings are permutations of each other -  use buffer - Array O(m+n)
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public bool Problem2_v3(string str1, string str2)
+        {
+            if (str1.Length != str2.Length)
+                return false;
+
+            int[] list = new int[256];
+
+            foreach (char c in str1)
+            {
+                list[c] += 1;
+            }
+
+            foreach (char c in str2)
+            {
+                list[c] -= 1;
+
+                if (list[c] < 0)
+                    return false;
+            }
+
+            return true;
+        }
+
+
+        #endregion
+
+
+        #region Test cases
         /// <summary>
         /// This method will check various problems with different text cases
         /// </summary>
-        public void Testcases()
+        public void Testcases_P1()
         {
             // Problem-1
             Console.WriteLine("V1:");
@@ -128,6 +219,33 @@ namespace CTCI
             Console.WriteLine(Problem1_v3("q"));
             Console.WriteLine(Problem1_v3(""));
         }
+
+        public void Testcases_P2()
+        {
+            // Problem-2
+            Console.WriteLine("V1");
+            Console.WriteLine(Problem2_v1("213", "321"));
+            Console.WriteLine(Problem2_v1("abc", "cba"));
+            Console.WriteLine(Problem2_v1("abc1", "1cba"));
+            Console.WriteLine(Problem2_v1("abc1x", "1cba"));
+            //Console.WriteLine(Problem2_v1("apple", "apxls"));  -- looks has an issue
+
+            Console.WriteLine("V2");
+            Console.WriteLine(Problem2_v2("213", "321"));
+            Console.WriteLine(Problem2_v2("abc", "cba"));
+            Console.WriteLine(Problem2_v2("abc1", "1cba"));
+            Console.WriteLine(Problem2_v2("abc1x", "1cba"));
+            Console.WriteLine(Problem2_v2("apple", "apxls"));
+
+            Console.WriteLine("V3");
+            Console.WriteLine(Problem2_v3("213", "321"));
+            Console.WriteLine(Problem2_v3("abc", "cba"));
+            Console.WriteLine(Problem2_v3("abc1", "1cba"));
+            Console.WriteLine(Problem2_v3("abc1x", "1cba"));
+            Console.WriteLine(Problem2_v3("apple", "apxls"));
+        }
+
+        #endregion
     }
 }
 
