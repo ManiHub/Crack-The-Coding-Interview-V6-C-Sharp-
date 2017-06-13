@@ -10,6 +10,11 @@ namespace CTCI
     {
         static void Main(string[] args)
         {
+            Chapter1 c1 = new Chapter1();
+            c1.Testcases();
+            
+
+            Console.ReadKey();
         }
     }
 }
