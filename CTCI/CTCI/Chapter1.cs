@@ -190,6 +190,43 @@ namespace CTCI
 
         #endregion
 
+        #region Problem 3
+
+        public char[] Problem3_v1(char[] str)
+        {
+            if (str == null || str.Length == 0 || (str.Length == 1 && str[0] != ' '))
+                return str;
+            int scount = 0;
+
+            foreach (char c in str)
+            {
+                if (c == ' ')
+                    scount++;
+            }
+
+            if (scount == 0)
+                return str;
+
+            int i = str.Length - 1;
+            char[] str1 = new char[str.Length + (2 * scount)];
+            int j = str1.Length - 1;
+            while(i>=0)
+            {
+                if (str[i] == ' ')
+                {
+                    str1[j] = '0';
+                    str1[j - 1] = '2';
+                    str1[j - 2] = '%';
+                    j -= 3;
+                }
+                else
+                    str1[j--] = str[i];
+                --i;
+            }
+            return str1;
+        }
+
+        #endregion
 
         #region Test cases
         /// <summary>
@@ -245,6 +282,15 @@ namespace CTCI
             Console.WriteLine(Problem2_v3("apple", "apxls"));
         }
 
+        public void Testcases_P3()
+        {
+            Console.WriteLine(Problem3_v1("a b c".ToCharArray()));
+            Console.WriteLine(Problem3_v1("a bc".ToCharArray()));
+            Console.WriteLine(Problem3_v1(" a b c".ToCharArray()));
+            Console.WriteLine(Problem3_v1("a b c".ToCharArray()));
+            Console.WriteLine(Problem3_v1(" ".ToCharArray()));
+            Console.WriteLine(Problem3_v1("abc".ToCharArray()));
+        }
         #endregion
     }
 }
