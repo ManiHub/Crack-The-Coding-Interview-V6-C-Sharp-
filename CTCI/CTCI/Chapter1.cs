@@ -265,7 +265,7 @@ namespace CTCI
             Console.WriteLine(Problem2_v1("abc", "cba"));
             Console.WriteLine(Problem2_v1("abc1", "1cba"));
             Console.WriteLine(Problem2_v1("abc1x", "1cba"));
-            //Console.WriteLine(Problem2_v1("apple", "apxls"));  -- looks has an issue
+            //Console.WriteLine(Problem2_v1("apple", "apxls"));  -- Bug in the sort code
 
             Console.WriteLine("V2");
             Console.WriteLine(Problem2_v2("213", "321"));
