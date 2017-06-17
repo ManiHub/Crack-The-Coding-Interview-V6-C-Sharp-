@@ -103,7 +103,6 @@ namespace CTCI
 
         #endregion
 
-
         #region Problem 2
         /// <summary>
         /// This Method will check if thwo given strings are permutations of each other -  sort and compare - O(n Logn)
@@ -228,10 +227,89 @@ namespace CTCI
 
         #endregion
 
+        #region Problem 4
+
+        /// <summary>
+        /// This method will check if given string is a permution of a palindrome - With Buffer - Dictionary - reduced loops
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public bool Problem4_v1(string str)
+        {
+            if (str == null)
+                return false;
+
+            if (str.Length == 1 || (str.Length == 2 && str[0] == str[1]))
+                return true;
+
+            Dictionary<char, int> list = new Dictionary<char, int>();
+            bool flag = false;
+            foreach(char c in str)
+            {
+                if (list.ContainsKey(c))
+                    list[c] += 1;
+                else
+                    list[c] = 1;
+            }
+
+           foreach(var x in list)
+            {
+                if(x.Value%2==0)
+                {
+                    if (flag)
+                        return false;
+                    else
+                        flag = true;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// This method will check if given string is a permution of a palindrome - With Buffer - Dictionary 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public bool Problem4_v2(string str)
+        {
+            if (str == null)
+                return false;
+
+            if (str.Length == 1 || (str.Length == 2 && str[0] == str[1]))
+                return true;
+
+            Dictionary<char, int> list = new Dictionary<char, int>();
+            int counter = 0;
+            foreach (char c in str)
+            {
+                if (list.ContainsKey(c))
+                {
+                    list[c] += 1;
+
+                    if (list[c] % 2 == 0)
+                        counter--;
+                }
+                else
+                {
+                    list[c] = 1;
+                    counter++;
+                }
+            }
+
+            
+            return counter <= 1;
+        }
+
+
+
+
+        #endregion
+
         #region Test cases
         /// <summary>
         /// This method will check various problems with different text cases
         /// </summary>
+        
         public void Testcases_P1()
         {
             // Problem-1
@@ -291,6 +369,21 @@ namespace CTCI
             Console.WriteLine(Problem3_v1(" ".ToCharArray()));
             Console.WriteLine(Problem3_v1("abc".ToCharArray()));
         }
+
+        public void Testcases_P4()
+        {
+            string ip1 = "abcdcabd";
+            string ip2 = "abc";
+            string ip3 = "cccccccccccccccccccc";
+            string ip4 = "tacktack";
+            string ip5 = "maniiman";
+            Console.WriteLine("Input : "+ip1+"; V1 : "+Problem4_v1(ip1)+"; V2 :"+Problem4_v2(ip1));
+            Console.WriteLine("Input : "+ip2+"; V1 : "+Problem4_v1(ip2)+"; V2 :"+Problem4_v2(ip2));
+            Console.WriteLine("Input : "+ip3+"; V1 : "+Problem4_v1(ip3)+"; V2 :"+Problem4_v2(ip3));
+            Console.WriteLine("Input : "+ip4+"; V1 : "+Problem4_v1(ip4)+"; V2 :"+Problem4_v2(ip4));
+            Console.WriteLine("Input : "+ip5+"; V1 : "+Problem4_v1(ip5)+"; V2 :"+Problem4_v2(ip5));
+        }
+
         #endregion
     }
 }
