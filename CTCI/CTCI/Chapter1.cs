@@ -334,6 +334,126 @@ namespace CTCI
 
         #endregion
 
+        #region Problem 5
+
+        /// <summary>
+        /// This method will find if two given strings are one edit away (replace, insert, remove) 
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        public bool Problem5_v1(string s1, string s2)
+        {
+            if (s1 == null || s2 == null)
+                return false;
+            if (s1.Length == 1 && s2.Length == 1)
+                return true;
+            if (s1.Length == s2.Length)
+                return OneEditReplace(s1, s2);
+            if (Math.Abs(s1.Length - s2.Length) == 1)
+                return OnePlaceRemovInsert(s1, s2);
+
+            return false;
+        }
+
+        private bool OnePlaceRemovInsert(string s1, string s2)
+        {
+            if (Math.Abs(s1.Length - s2.Length) != 1)
+                return false;
+            int i = 0, j = 0;
+
+            while (i< s1.Length && j < s2.Length)
+            {
+                if (s1[i] != s2[j])
+                {
+                    if (i!=j)
+                        return false;
+                    else
+                        j++;
+                }
+                else
+                {
+                    i++;
+                    j++;
+                }
+            }
+            return true;
+        }
+
+        private bool OneEditReplace(string s1, string s2)
+        {
+            if (s1.Length != s2.Length)
+                return false;
+            bool flag = false;
+            for(int i = 0; i < s1.Length; i++)
+            {
+                if(s1[i]!=s2[i])
+                {
+                    if (flag)
+                        return false;
+                    else
+                        flag = true;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// This method will find if two given strings are one edit away (replace, insert, remove) 
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        public bool Problem5_v2(string s1, string s2)
+        {
+            if (s1 == null || s2 == null)
+                return false;
+            if (s1.Length == 1 && s2.Length == 1)
+                return true;
+            if (s1.Length == s2.Length || Math.Abs(s1.Length - s2.Length) == 1)
+                return OneEditAway(s1, s2);
+
+            return false;
+        }
+
+        private bool OneEditAway(string str1, string str2)
+        {
+            if (Math.Abs(str1.Length - str2.Length) > 1)
+                return false;
+            string s1 = str1.Length > str2.Length ? str2 : str1;
+            string s2 = str1.Length > str2.Length ? str1 : str2;
+            int i = 0, j = 0;
+            bool flag = false;
+            while(i<s1.Length && j<s2.Length)
+            {
+                if (s1[i] != s2[j])
+                {
+                    if (s1.Length == s2.Length)
+                    {
+                        if (flag)
+                            return false;
+                        flag = true;
+                        i++;
+                    }
+                    else
+                    {
+                        if (i != j)
+                            return false;
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+                j++;
+            }
+            return true;
+        }
+        #endregion
+
+
+
         #region Test cases
         /// <summary>
         /// This method will check various problems with different text cases
@@ -411,6 +531,22 @@ namespace CTCI
             Console.WriteLine("Input : "+ip3+"; V1 : "+Problem4_v1(ip3)+"; V2 :"+Problem4_v2(ip3)+"; V3 : "+Problem4_v3(ip3));
             Console.WriteLine("Input : "+ip4+"; V1 : "+Problem4_v1(ip4)+"; V2 :"+Problem4_v2(ip4)+"; V3 : "+Problem4_v3(ip4));
             Console.WriteLine("Input : "+ip5+"; V1 : "+Problem4_v1(ip5)+"; V2 :"+Problem4_v2(ip5)+"; V3 : "+Problem4_v3(ip5));
+        }
+
+        public void Testcases_P5()
+        {
+            string s11 = "abcd", s21 = "abcd";
+            string s12 = "abcd", s22= "abcx";
+            string s13 = "xxxxxxx", s23 = "xxxxxx";
+            string s14 = "pale", s24 = "sale";
+            string s15 = "palex", s25 = "sale";
+            string s16 = "palex", s26 = "saley";
+            Console.WriteLine(s11+", "+s21+" - "+Problem5_v1(s11,s21)+" - "+Problem5_v2(s11,s21));
+            Console.WriteLine(s12+", "+s22+" - "+Problem5_v1(s12,s22)+" - "+Problem5_v2(s12,s22));
+            Console.WriteLine(s13+", "+s23+" - "+Problem5_v1(s13,s23)+" - "+Problem5_v2(s13,s23));
+            Console.WriteLine(s14+", "+s24+" - "+Problem5_v1(s14,s24)+" - "+Problem5_v2(s14,s24));
+            Console.WriteLine(s15+", "+s25+" - "+Problem5_v1(s15,s25)+" - "+Problem5_v2(s15,s25));
+            Console.WriteLine(s16+", "+s26+" - "+Problem5_v1(s16,s26)+" - "+Problem5_v2(s16,s26));
         }
 
         #endregion
