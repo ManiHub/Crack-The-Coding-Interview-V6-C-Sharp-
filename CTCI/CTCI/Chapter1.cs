@@ -16,8 +16,8 @@ namespace CTCI
     /// 5. Given two strings, check one strig is formed by replacing a character,deletion of a character, addation of a character in other string
     /// 6. Given a string, perform string compression Eg: aaabbbccc->a3b3c3
     /// 7. Given a N* N matrix, rotate it by 90 degrees
-    /// 8. Given a N* M matrix, replace a roiw/coulmn with zeros if any position contain zero
-    /// 9. given two strings, check if one string is rotation of othe
+    /// 8. Given a N* M matrix, replace a row/column with zeros if respective row/column position contain zero
+    /// 9. given two strings, check if one string is rotation of other
     /// </summary>
     class Chapter1
     {
@@ -254,7 +254,7 @@ namespace CTCI
 
            foreach(var x in list)
             {
-                if(x.Value%2==0)
+                if(x.Value%2!=0)
                 {
                     if (flag)
                         return false;
@@ -300,6 +300,35 @@ namespace CTCI
             return counter <= 1;
         }
 
+        /// <summary>
+        /// This method will check if given string is a permution of a palindrome - With out Buffer - Optimal 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public bool Problem4_v3(string str)
+        {
+            if (str == null)
+                return false;
+
+            if (str.Length == 1 || (str.Length == 2 && str[0] == str[1]))
+                return true;
+
+            int checker = 0;
+            foreach (char c in str)
+            {
+                int value = c - 'a';
+                int temp = 1<<value;
+
+                // flip the bit at position temp
+                if ((checker & temp) == 0)
+                    checker |= temp;
+                else
+                    checker &= ~temp;
+
+            }
+            return (checker & (checker-1)) ==0;
+        }
+
 
 
 
@@ -309,7 +338,7 @@ namespace CTCI
         /// <summary>
         /// This method will check various problems with different text cases
         /// </summary>
-        
+
         public void Testcases_P1()
         {
             // Problem-1
@@ -377,11 +406,11 @@ namespace CTCI
             string ip3 = "cccccccccccccccccccc";
             string ip4 = "tacktack";
             string ip5 = "maniiman";
-            Console.WriteLine("Input : "+ip1+"; V1 : "+Problem4_v1(ip1)+"; V2 :"+Problem4_v2(ip1));
-            Console.WriteLine("Input : "+ip2+"; V1 : "+Problem4_v1(ip2)+"; V2 :"+Problem4_v2(ip2));
-            Console.WriteLine("Input : "+ip3+"; V1 : "+Problem4_v1(ip3)+"; V2 :"+Problem4_v2(ip3));
-            Console.WriteLine("Input : "+ip4+"; V1 : "+Problem4_v1(ip4)+"; V2 :"+Problem4_v2(ip4));
-            Console.WriteLine("Input : "+ip5+"; V1 : "+Problem4_v1(ip5)+"; V2 :"+Problem4_v2(ip5));
+            Console.WriteLine("Input : "+ip1+"; V1 : "+Problem4_v1(ip1)+"; V2 :"+Problem4_v2(ip1)+"; V3 : "+Problem4_v3(ip1));
+            Console.WriteLine("Input : "+ip2+"; V1 : "+Problem4_v1(ip2)+"; V2 :"+Problem4_v2(ip2)+"; V3 : "+Problem4_v3(ip2));
+            Console.WriteLine("Input : "+ip3+"; V1 : "+Problem4_v1(ip3)+"; V2 :"+Problem4_v2(ip3)+"; V3 : "+Problem4_v3(ip3));
+            Console.WriteLine("Input : "+ip4+"; V1 : "+Problem4_v1(ip4)+"; V2 :"+Problem4_v2(ip4)+"; V3 : "+Problem4_v3(ip4));
+            Console.WriteLine("Input : "+ip5+"; V1 : "+Problem4_v1(ip5)+"; V2 :"+Problem4_v2(ip5)+"; V3 : "+Problem4_v3(ip5));
         }
 
         #endregion
