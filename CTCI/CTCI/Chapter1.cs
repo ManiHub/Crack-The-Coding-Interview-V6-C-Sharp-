@@ -452,7 +452,112 @@ namespace CTCI
         }
         #endregion
 
+        #region Problem 6
 
+        /// <summary>
+        /// This method will return the compressed version of a give string eg: bbbbddddccc => b4d4c3
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string Problem6_v1(string str)
+        {
+            if (str == null || str.Length == 1 || str.Length == 2 && str[0] != str[1])
+                return str;
+            string comp = "";
+            int counter = 0;
+            int i = 0;
+            for(i = 0; i+1 < str.Length; i++)
+            {
+                counter++;
+                if (str[i] != str[i + 1])
+                {
+                    comp += str[i]+"" + counter;
+                    counter = 0;
+                }
+            }
+            comp += str[i] + "" + counter;
+            return comp.Length > str.Length ? str:comp;
+        }
+
+        #endregion
+
+        #region Problem 7
+        /// <summary>
+        /// This method will rotate the given matrix by 90 degrees
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        public int[,] Problem7_v1(int[,] mat)
+        {
+            int n = mat.GetLength(0);
+            for(int layers = 0; layers < n/2; layers++)
+            {
+                int first = layers;
+                int last = n - 1 - layers;
+                
+                for(int i = first; i < last; i++)
+                {
+                    int offset = i - first;
+                    int topelement = mat[first, i];
+                    mat[first, i] = mat[last - offset,first];
+                    mat[last - offset, first] = mat[last, last - offset];
+                    mat[last, last - offset] = mat[i, last];
+                    mat[i, last] = topelement;
+                }
+            }
+            return mat;
+        }
+        #endregion
+
+        #region Problem 8
+
+        /// <summary>
+        /// This method will make the respective row and column to zeros if an element at particular row and column is zero.
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        public int[,] Problem8_v1(int[,] mat)
+        {
+            int n = mat.GetLength(0);
+            bool[] row = new bool[n];
+            bool[] col = new bool[n];
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    if (mat[i, j] == 0)
+                    {
+                        row[i] = true;
+                        col[j] = true;
+                    }
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    if (row[i] == true || col[j] == true)
+                        mat[i,j] = 0;
+
+            return mat;
+        }
+
+        #endregion
+
+        #region Problem 9
+
+        /// <summary>
+        /// This method will check, Given a string str1, check if str2 is rotation of str1
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public bool Problem9_v1(string str1, string str2)
+        {
+            if (str1 == null || str2 == null)
+                return false;
+            str1 += str1;
+
+            return str1.Contains(str2);
+        }
+
+        #endregion
 
         #region Test cases
         /// <summary>
@@ -549,6 +654,39 @@ namespace CTCI
             Console.WriteLine(s16+", "+s26+" - "+Problem5_v1(s16,s26)+" - "+Problem5_v2(s16,s26));
         }
 
+        public void Testcases_P6()
+        {
+            string ip1 = "abcd";
+            string ip2 = "aabbccdd";
+            string ip3 = "aaaaaaa";
+            string ip4 = "abbbcdddd";
+            string ip5 = null;
+            Console.WriteLine(ip1 + " - " + Problem6_v1(ip1));
+            Console.WriteLine(ip2 + " - " + Problem6_v1(ip2));
+            Console.WriteLine(ip3 + " - " + Problem6_v1(ip3));
+            Console.WriteLine(ip4 + " - " + Problem6_v1(ip4));
+            Console.WriteLine(ip5 + " - " + Problem6_v1(ip5));
+        }
+
+        public void Testcases_P7()
+        {
+            int[,] mat1 = new int[,] { {1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+            Console.WriteLine(Problem7_v1(mat1));
+        }
+
+        public void Testcases_P8()
+        {
+            int[,] mat1 = new int[,] { { 1, 2, 3, 0 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+            Console.WriteLine(Problem8_v1(mat1));
+           var  x = 10;
+        }
+
+        public void Testcases_P9()
+        {
+            Console.WriteLine("apple, leapp- "+Problem9_v1("apple","leapp"));
+            Console.WriteLine("appl, eapp- "+Problem9_v1("appl", "eapp"));
+            Console.WriteLine("aaa, aaa- " + Problem9_v1("aaa", "aaa"));
+        }
         #endregion
     }
 }

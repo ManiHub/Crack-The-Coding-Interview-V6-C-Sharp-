@@ -15,7 +15,11 @@ namespace CTCI
             //c1.Testcases_P2();
             //c1.Testcases_P3();
             //c1.Testcases_P4();
-            c1.Testcases_P5();
+            //c1.Testcases_P5();
+            //c1.Testcases_P6();
+            //c1.Testcases_P7();
+            //c1.Testcases_P8();
+            c1.Testcases_P9();
 
 
             Console.ReadKey();
