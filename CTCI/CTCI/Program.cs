@@ -10,7 +10,7 @@ namespace CTCI
     {
         static void Main(string[] args)
         {
-            Chapter1 c1 = new Chapter1();
+            //Chapter1 c1 = new Chapter1();
             //c1.Testcases_P1();
             //c1.Testcases_P2();
             //c1.Testcases_P3();
@@ -19,7 +19,11 @@ namespace CTCI
             //c1.Testcases_P6();
             //c1.Testcases_P7();
             //c1.Testcases_P8();
-            c1.Testcases_P9();
+            //c1.Testcases_P9();
+
+            Chapter2 c2 = new Chapter2();
+            //c2.Testcases_P1();
+            c2.Testcases_P2();
 
 
             Console.ReadKey();

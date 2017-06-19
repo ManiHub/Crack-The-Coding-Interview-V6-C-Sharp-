@@ -58,5 +58,29 @@ namespace CTCI
 
             return pi;
         }
+
+        internal static Node CreateLinkedList(int[] arr)
+        {
+            if (arr == null || arr.Length == 0)
+                return null;
+            Node head = null;
+            Node runner = null;
+
+            foreach(int x in arr){
+                if(head == null)
+                {
+                    head = new Node(x);
+                    runner = head;
+                }
+                else
+                {
+                    Node t = new Node(x);
+                    runner.next = t;
+                    runner = runner.next;
+                }
+            }
+
+            return head;
+        }
     }
 }
