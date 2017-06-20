@@ -23,7 +23,9 @@ namespace CTCI
 
             Chapter2 c2 = new Chapter2();
             //c2.Testcases_P1();
-            c2.Testcases_P2();
+            //c2.Testcases_P2();
+            //c2.Testcases_P3();
+            c2.Testcases_P5();
 
 
             Console.ReadKey();
