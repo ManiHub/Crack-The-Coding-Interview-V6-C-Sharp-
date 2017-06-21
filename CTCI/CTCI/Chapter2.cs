@@ -222,14 +222,14 @@ namespace CTCI
 
         #endregion
 
-        #region Problem 7
+        #region Problem 8
 
         /// <summary>
-        /// This method will check if given Linked list contains looks are not
+        /// This method will check if given Linked list contains loops are not
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        public Node Problem7_v1(Node head)
+        public Node Problem8_v1(Node head)
         {
             if (head == null)
                 return null;
@@ -324,7 +324,7 @@ namespace CTCI
             Node head = Utilities.CreateLinkedList(arr);
 
             head.next.next.next.next.next.next = head.next.next;
-            var res = Problem7_v1(head);
+            var res = Problem8_v1(head);
         }
 
 
