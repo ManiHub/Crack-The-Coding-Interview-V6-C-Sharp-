@@ -82,5 +82,32 @@ namespace CTCI
 
             return head;
         }
+
+
+
+        internal static ListNode CreateListNode(int[] arr)
+        {
+            if (arr == null || arr.Length == 0)
+                return null;
+            ListNode head = null;
+            ListNode runner = null;
+
+            foreach (int x in arr)
+            {
+                if (head == null)
+                {
+                    head = new ListNode(x);
+                    runner = head;
+                }
+                else
+                {
+                    ListNode t = new ListNode(x);
+                    runner.next = t;
+                    runner = runner.next;
+                }
+            }
+
+            return head;
+        }
     }
 }

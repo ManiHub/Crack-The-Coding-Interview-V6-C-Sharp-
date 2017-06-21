@@ -27,7 +27,10 @@ namespace CTCI
             //c2.Testcases_P3();
             //c2.Testcases_P5();
             //c2.Testcases_P6();
-            c2.Testcases_P7();
+            //c2.Testcases_P7();
+
+            LeetCodeProblems leet = new LeetCodeProblems();
+            leet.Testcases_P1();
 
 
             Console.ReadKey();
