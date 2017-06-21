@@ -160,6 +160,103 @@ namespace CTCI
 
         #region Problem 6
 
+        /// <summary>
+        /// This method willl check if given string is a palindrome or not - using buffer. - with buffer
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool Problem6_v1(Node head)
+        {
+            if (head == null)
+                return false;
+
+            if (head.next == null)
+                return true;
+
+            int[] buffer = new int[10];
+            int counter = 0;
+            while (head != null)
+            {
+                buffer[head.data]++;
+                if (buffer[head.data] % 2 == 0)
+                    counter--;
+                else
+                    counter++;
+
+                head = head.next;
+            }
+            return counter <= 1 ;
+        }
+
+
+        /// <summary>
+        /// This method willl check if given string is a palindrome or not - using buffer. - with out buffer, just with int
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool Problem6_v2(Node head)
+        {
+            if (head == null)
+                return false;
+
+            if (head.next == null)
+                return true;
+
+            int checker = 0;
+            while (head != null)
+            {
+                int temp = 1 << head.data;
+
+                if ((checker & temp) == 0)
+                {
+                    checker |= temp;
+                }
+                else
+                {
+                    checker &= ~temp;
+                }
+                head = head.next;
+            }
+            return (checker & (checker - 1))==0;
+        }
+
+        #endregion
+
+        #region Problem 7
+
+        /// <summary>
+        /// This method will check if given Linked list contains looks are not
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public Node Problem7_v1(Node head)
+        {
+            if (head == null)
+                return null;
+            Node p1 = head;
+            Node p2 = head;
+
+            while(p1!=null && p2 != null)
+            {
+                p1 = p1.next;
+                p2 = p2.next.next;
+
+                if (p1 == p2)
+                    break;
+            }
+
+            if (p1 == null || p2 == null)
+                return null;
+
+            p1 = head;
+            while (p1 != p2)
+            {
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+
+            return p1;
+        }
 
         #endregion
 
@@ -196,6 +293,41 @@ namespace CTCI
 
             Node result = Problem5_v1(x, y);
         }
+
+        public void Testcases_P6()
+        {
+            int[] arr = new int[] {1,2,3,3,2,1 };
+            int[] arr1 = new int[] {1,2,3,4,3,2,1 };
+            int[] arr2 = new int[] { 1, 2, 3, 4 };
+            int[] arr3 = new int[] { 1, 1};
+            int[] arr4 = new int[] { 1, 1,1,3,4,5,2,2,5,1,4};
+            int[] arr5 = new int[] { 1, 1,1,3,4,5,2,2,5,1};
+
+            Node head = Utilities.CreateLinkedList(arr);
+            Node head1 = Utilities.CreateLinkedList(arr1);
+            Node head2 = Utilities.CreateLinkedList(arr2);
+            Node head3 = Utilities.CreateLinkedList(arr3);
+            Node head4 = Utilities.CreateLinkedList(arr4);
+            Node head5 = Utilities.CreateLinkedList(arr5);
+
+            Console.WriteLine(Problem6_v1(head) +" - "+Problem6_v2(head));
+            Console.WriteLine(Problem6_v1(head1)+" - "+Problem6_v2(head1));
+            Console.WriteLine(Problem6_v1(head2)+" - "+Problem6_v2(head2));
+            Console.WriteLine(Problem6_v1(head3)+" - "+Problem6_v2(head3));
+            Console.WriteLine(Problem6_v1(head4)+" - "+Problem6_v2(head4));
+            Console.WriteLine(Problem6_v1(head5)+" - "+Problem6_v2(head5));
+        }
+
+        public void Testcases_P7()
+        {
+            int[] arr = new int[] { 1, 2, 3, 3, 2, 1 };
+            Node head = Utilities.CreateLinkedList(arr);
+
+            head.next.next.next.next.next.next = head.next.next;
+            var res = Problem7_v1(head);
+        }
+
+
         #endregion
 
     }
